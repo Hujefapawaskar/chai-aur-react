@@ -1,1 +1,1 @@
-state counter function has a callback function in it 
+state counter function has a callback function in it which stores the previous value 
