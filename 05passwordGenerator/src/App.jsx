@@ -5,11 +5,11 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 function App() {
   const [length, setLength] = useState(8)
   const [numberAllowed, setNumberAllowed] = useState(false);
-  const [charAllowed, setCharAllowed] = useState(false)
+  const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("")
 
   //useRef hook
-  const passwordRef = useRef(null)
+  const passwordRef = useRef(null) // to refer the input field and persist the value even after rerender 
 
   const passwordGenerator = useCallback(() => {
     let pass = ""
@@ -26,7 +26,7 @@ function App() {
     setPassword(pass)
 
 
-  }, [length, numberAllowed, charAllowed, setPassword])
+  }, [length, numberAllowed, charAllowed, setPassword]) // when this depn will change it will rerender the func
 
   const copyPasswordToClipboard = useCallback(() => {
     passwordRef.current?.select();
@@ -34,9 +34,9 @@ function App() {
     window.navigator.clipboard.writeText(password)
   }, [password])
 
-  useEffect(() => {
+  useEffect(() => { // no variables needed 
     passwordGenerator()
-  }, [length, numberAllowed, charAllowed, passwordGenerator])
+  }, [length, numberAllowed, charAllowed, passwordGenerator]) // when these depn will change it will rerender the func and call the passwordGenerator func to display the new password
   return (
     
     <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500">
@@ -60,8 +60,8 @@ function App() {
       <div className='flex items-center gap-x-1'>
         <input 
         type="range"
-        min={6}
-        max={100}
+        min={8}
+        max={20}
         value={length}
          className='cursor-pointer'
          onChange={(e) => {setLength(e.target.value)}}
